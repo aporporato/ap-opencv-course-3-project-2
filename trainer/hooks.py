@@ -283,7 +283,8 @@ def early_stop_hook_classification(epochs,
         else:
             epochs_from_last_best_loss = epochs_from_last_best_loss + 1
         if epochs_from_last_best_loss >= epochs // 10:
-            print("Early Stopping")
+            print("Early Stopping at epoch {}/{}: best epoch was {} epochs ago (loss was {})"
+                  .format(len(train_history), epochs, epochs_from_last_best_loss, last_best_loss))
             stop = True
     else:
         if last_best_loss > current_loss:
