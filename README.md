@@ -1,1 +1,3 @@
-# ap-opencv-course-3-project-2
+# Deep Learning with PyTorch
+### Project 2
+Notebook for the course from OpenCV. Done.
