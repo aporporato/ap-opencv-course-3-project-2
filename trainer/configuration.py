@@ -47,6 +47,7 @@ class OptimizerConfig:
         30, 40
     )  # at which epochs should we make a "step" in learning rate (i.e. decrease it in some manner)
     lr_gamma: float = 0.1  # multiplier applied to current learning rate at each of lr_step_milestones
+    lr_scheduler_patience: int = 10  # patience for some schedulers (i.e. ReduceLROnPlateau)
 
 
 # ## <font style="color:green">Training Configuration</font>
@@ -54,7 +55,7 @@ class OptimizerConfig:
 @dataclass
 class TrainerConfig:
     model_dir: str = "checkpoints"  # directory to save model states
-    model_saving_frequency: int = 1  # frequency of model state savings per epochs
+    model_saving_frequency: int = 1  # epochs period of model state savings
     device: str = "cpu"  # device to use for training.
     epoch_num: int = 50  # number of times the whole dataset will be passed through the network
     progress_bar: bool = True  # enable progress bar visualization during train process
