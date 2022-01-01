@@ -283,8 +283,9 @@ def early_stop_hook_classification(epochs,
         else:
             epochs_from_last_best_loss = epochs_from_last_best_loss + 1
         if epochs_from_last_best_loss >= epochs // 10:
-            print("Early Stopping at epoch {}/{}: best loss was {} epochs ago or more (loss was {}, now is {})"
-                  .format(len(test_history), epochs - 1, epochs_from_last_best_loss, last_best_loss, current_loss))
+            print(
+                "Early Stopping at epoch {0}/{1}: best loss was {2} epochs ago or more (loss was {3:.5}, now is {4:.5})"
+                .format(len(test_history), epochs - 1, epochs_from_last_best_loss, last_best_loss, current_loss))
             stop = True
     else:
         if last_best_loss > current_loss:

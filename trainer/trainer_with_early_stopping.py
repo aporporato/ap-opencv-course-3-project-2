@@ -224,7 +224,9 @@ class TrainerWithEarlyStopping(Trainer):  # pylint: disable=too-many-instance-at
                 os.makedirs(self.save_dir, exist_ok=True)
                 torch.save(
                     self.model.state_dict(),
-                    os.path.join(self.save_dir, self.model_name_prefix) + str(datetime.datetime.now())
+                    os.path.join(self.save_dir, self.model_name_prefix) + \
+                    "_{0:.5}_".format(output_test['metric']) + \
+                    datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
                 )
 
             if self.hooks["early_stop"] is not None:

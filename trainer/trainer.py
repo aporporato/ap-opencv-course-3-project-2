@@ -14,6 +14,7 @@ import datetime
 import os
 from operator import itemgetter
 from pathlib import Path
+from time import timezone
 from typing import Union, Callable
 
 import torch
@@ -230,7 +231,9 @@ class Trainer:  # pylint: disable=too-many-instance-attributes
                 os.makedirs(self.save_dir, exist_ok=True)
                 torch.save(
                     self.model.state_dict(),
-                    os.path.join(self.save_dir, self.model_name_prefix) + str(datetime.datetime.now())
+                    os.path.join(self.save_dir, self.model_name_prefix) + \
+                    "_{0:.5}_".format(output_test['metric']) + \
+                    datetime.datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
                 )
         return self.metrics
 
