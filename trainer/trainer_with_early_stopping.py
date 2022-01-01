@@ -183,7 +183,7 @@ class TrainerWithEarlyStopping(Trainer):  # pylint: disable=too-many-instance-at
                 self.optimizer,
                 self.device,
                 self.use_max_norm_normalization,
-                prefix="[{}/{}]".format(epoch + 1, epochs),
+                prefix="[{}/{}]".format(epoch, epochs - 1),
                 stage_progress=self.stage_progress,
                 data_getter=self.data_getter,
                 target_getter=self.target_getter
@@ -194,7 +194,7 @@ class TrainerWithEarlyStopping(Trainer):  # pylint: disable=too-many-instance-at
                 self.loss_fn,
                 self.metric_fn,
                 self.device,
-                prefix="[{}/{}]".format(epoch + 1, epochs),
+                prefix="[{}/{}]".format(epoch, epochs - 1),
                 stage_progress=self.stage_progress,
                 data_getter=self.data_getter,
                 target_getter=self.target_getter,

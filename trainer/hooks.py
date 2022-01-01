@@ -236,7 +236,7 @@ def end_epoch_hook_classification(iterator, epoch, output_train, output_test):
     if hasattr(iterator, "set_description"):
         iterator.set_description(
             "epoch: {0}, test_top1: {1:.5}, train_loss: {2:.5}, test_loss: {3:.5}".format(
-                epoch + 1, output_test["metric"]["top1"], output_train["loss"], output_test["loss"]
+                epoch, output_test["metric"]["top1"], output_train["loss"], output_test["loss"]
             )
         )
 
