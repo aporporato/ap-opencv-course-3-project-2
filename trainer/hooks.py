@@ -250,32 +250,32 @@ def end_epoch_hook_classification(iterator, epoch, output_train, output_test):
 # - `epochs` (`int`): total training epochs number.
 #
 #
-# - `train_history` (`list[float]`): history of loss on training set.
+# - `test_history` (`list[float]`): history of loss on test set.
 #
 #
-# - `current_loss` (`Number`): current epoch training loss.
+# - `current_loss` (`Number`): current epoch test loss.
 #
 #
-# - `last_best_loss` (`int`): best training loss up until the current epoch loss.
+# - `last_best_loss` (`int`): best test loss up until the current epoch loss.
 #
 #
 # - `epochs_from_last_best_loss` (`int`): number of epoch from the one with the best loss.
 
 def early_stop_hook_classification(epochs,
-                                   train_history,
+                                   test_history,
                                    current_loss,
                                    last_best_loss,
                                    epochs_from_last_best_loss):
     """ Default end_epoch_hook for classification tasks.
     Arguments:
         epochs (int): training epochs number.
-        train_history (list[float]): history of loss on training set.
-        current_loss (float): current epoch training loss.
-        last_best_loss (int): best training loss up until the current epoch loss.
+        test_history (list[float]): history of loss on test set.
+        current_loss (float): current epoch test loss.
+        last_best_loss (int): best test loss up until the current epoch loss.
         epochs_from_last_best_loss (int): number of epoch from the one with the best loss.
     """
     stop = False
-    if len(train_history) >= epochs // 3:
+    if len(test_history) >= epochs // 3:
         # If validation loss do not decrease for a while, stop (the net is overfitting)
         if current_loss < last_best_loss:
             epochs_from_last_best_loss = 0
@@ -283,11 +283,11 @@ def early_stop_hook_classification(epochs,
         else:
             epochs_from_last_best_loss = epochs_from_last_best_loss + 1
         if epochs_from_last_best_loss >= epochs // 10:
-            print("Early Stopping at epoch {}/{}: best epoch was {} epochs ago (loss was {})"
-                  .format(len(train_history), epochs, epochs_from_last_best_loss, last_best_loss))
+            print("Early Stopping at epoch {}/{}: best loss was {} epochs ago (loss was {}, now is {})"
+                  .format(len(test_history), epochs - 1, epochs_from_last_best_loss, last_best_loss, current_loss))
             stop = True
     else:
         if last_best_loss > current_loss:
             last_best_loss = current_loss
-    train_history.append(current_loss)
-    return stop, train_history, last_best_loss, epochs_from_last_best_loss
+    test_history.append(current_loss)
+    return stop, test_history, last_best_loss, epochs_from_last_best_loss

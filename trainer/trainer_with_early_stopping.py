@@ -172,7 +172,7 @@ class TrainerWithEarlyStopping(Trainer):  # pylint: disable=too-many-instance-at
             epochs (int): number of epochs to train model.
         """
         iterator = tqdm(range(epochs), dynamic_ncols=True)
-        train_history = []
+        test_history = []
         last_best_loss = torch.tensor(np.inf)
         epochs_from_last_best_loss = 0
         for epoch in iterator:
@@ -228,8 +228,8 @@ class TrainerWithEarlyStopping(Trainer):  # pylint: disable=too-many-instance-at
                 )
 
             if self.hooks["early_stop"] is not None:
-                stop, train_history, last_best_loss, epochs_from_last_best_loss = \
-                    self.hooks["early_stop"](epochs, train_history, output_train['loss'], last_best_loss,
+                stop, test_history, last_best_loss, epochs_from_last_best_loss = \
+                    self.hooks["early_stop"](epochs, test_history, output_test['loss'], last_best_loss,
                                              epochs_from_last_best_loss)
                 if stop:
                     return self.metrics
