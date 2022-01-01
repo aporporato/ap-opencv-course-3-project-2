@@ -225,7 +225,7 @@ class TrainerWithEarlyStopping(Trainer):  # pylint: disable=too-many-instance-at
                 torch.save(
                     self.model.state_dict(),
                     os.path.join(self.save_dir, self.model_name_prefix) + \
-                    "_{0:.5}_".format(output_test['metric']) + \
+                    "_{0:.5}_".format(output_test["metric"]["top1"]) + \
                     datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
                 )
 

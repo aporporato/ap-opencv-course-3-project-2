@@ -232,8 +232,8 @@ class Trainer:  # pylint: disable=too-many-instance-attributes
                 torch.save(
                     self.model.state_dict(),
                     os.path.join(self.save_dir, self.model_name_prefix) + \
-                    "_{0:.5}_".format(output_test['metric']) + \
-                    datetime.datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S")
+                    "_{0:.5}_".format(output_test["metric"]["top1"]) + \
+                    datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
                 )
         return self.metrics
 
