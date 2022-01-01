@@ -2,7 +2,6 @@
 
 from typing import Callable, Iterable
 
-import torch
 from dataclasses import dataclass
 from torchvision.transforms import ToTensor
 
@@ -33,8 +32,8 @@ class DatasetConfig:
 
 @dataclass
 class DataloaderConfig:
-    batch_size: int = 250  # amount of data to pass through the network at each forward-backward iteration
-    num_workers: int = 5  # number of concurrent processes using to prepare data
+    batch_size: int = 256  # amount of data to pass through the network at each forward-backward iteration
+    num_workers: int = 2  # number of concurrent processes using to prepare data
 
 
 # ## <font style="color:green">Optimizer Configuration</font>
@@ -56,6 +55,6 @@ class OptimizerConfig:
 class TrainerConfig:
     model_dir: str = "checkpoints"  # directory to save model states
     model_saving_frequency: int = 1  # frequency of model state savings per epochs
-    device: str = "cuda" if torch.cuda.is_available() else "cpu"  # device to use for training.
+    device: str = "cpu"  # device to use for training.
     epoch_num: int = 50  # number of times the whole dataset will be passed through the network
     progress_bar: bool = True  # enable progress bar visualization during train process
