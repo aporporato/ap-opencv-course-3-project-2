@@ -42,12 +42,14 @@ class DataloaderConfig:
 class OptimizerConfig:
     learning_rate: float = 0.001  # determines the speed of network's weights update
     momentum: float = 0.9  # used to improve vanilla SGD algorithm and provide better handling of local minimas
+    betas: (float, float) = (0.9, 0.999)  # to use for Adam in presence of Dropout
     weight_decay: float = 0.0001  # amount of additional regularization on the weights values
     lr_step_milestones: Iterable = (
         30, 40
     )  # at which epochs should we make a "step" in learning rate (i.e. decrease it in some manner)
     lr_gamma: float = 0.1  # multiplier applied to current learning rate at each of lr_step_milestones
     lr_scheduler_patience: int = 10  # patience for some schedulers (i.e. ReduceLROnPlateau)
+    lr_scheduler_threshold: float = 0.0001  # loss threshold for some schedulers (i.e. ReduceLROnPlateau)
 
 
 # ## <font style="color:green">Training Configuration</font>
