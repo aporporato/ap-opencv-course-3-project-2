@@ -148,14 +148,14 @@ class Trainer:  # pylint: disable=too-many-instance-attributes
             get_key_metric: Callable = itemgetter("top1"),
     ):
         self.model = model
-        self.use_max_norm_normalization = False
+        self.use_max_norm_regularization = False
         for name, layer in model.named_modules():
             if isinstance(layer, torch.nn.Dropout) or \
                     isinstance(layer, torch.nn.Dropout2d) or \
                     isinstance(layer, torch.nn.Dropout3d) or \
                     isinstance(layer, torch.nn.AlphaDropout) or \
                     isinstance(layer, torch.nn.FeatureAlphaDropout):
-                self.use_max_norm_normalization = True
+                self.use_max_norm_regularization = True
         self.loader_train = loader_train
         self.loader_test = loader_test
         self.loss_fn = loss_fn
@@ -189,7 +189,7 @@ class Trainer:  # pylint: disable=too-many-instance-attributes
                 self.loss_fn,
                 self.optimizer,
                 self.device,
-                self.use_max_norm_normalization,
+                self.use_max_norm_regularization,
                 prefix="[{}/{}]".format(epoch, epochs - 1),
                 stage_progress=self.stage_progress,
                 data_getter=self.data_getter,

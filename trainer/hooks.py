@@ -54,7 +54,7 @@ def _max_norm(model, max_val=1.0, eps=1e-8):
 # - `device` (`str`): Specifies device at which samples will be uploaded.
 #
 #
-# - `use_max_norm_normalization` (`bool`): should be True if the model has Dropout layers.
+# - `use_max_norm_regularization` (`bool`): should be True if the model has Dropout layers.
 #
 #
 # - `data_getter` (`Callable`): function object to extract input data from the sample prepared by dataloader.
@@ -78,7 +78,7 @@ def train_hook_default(
         loss_fn,
         optimizer,
         device,
-        use_max_norm_normalization=False,
+        use_max_norm_regularization=False,
         data_getter=itemgetter("image"),
         target_getter=itemgetter("mask"),
         iterator_type=tqdm,
@@ -93,7 +93,7 @@ def train_hook_default(
         loss_fn (callable): loss function.
         optimizer (torch.optim.Optimizer): Optimizer.
         device (str): Specifies device at which samples will be uploaded.
-        use_max_norm_normalization (bool): should be True if the model has Dropout layers.
+        use_max_norm_regularization (bool): should be True if the model has Dropout layers.
         data_getter (Callable): function object to extract input data from the sample prepared by dataloader.
         target_getter (Callable): function object to extract target data from the sample prepared by dataloader.
         iterator_type (iterator): type of the iterator.
@@ -108,7 +108,7 @@ def train_hook_default(
     iterator = iterator_type(loader, disable=not stage_progress, dynamic_ncols=True)
     loss_avg = AverageMeter()
     for i, sample in enumerate(iterator):
-        if use_max_norm_normalization:
+        if use_max_norm_regularization:
             _max_norm(model)
         optimizer.zero_grad()
         inputs = data_getter(sample).to(device)
