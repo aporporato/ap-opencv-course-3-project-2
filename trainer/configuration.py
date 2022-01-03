@@ -48,7 +48,7 @@ class OptimizerConfig:
         30, 40
     )  # at which epochs should we make a "step" in learning rate (i.e. decrease it in some manner)
     lr_gamma: float = 0.1  # multiplier applied to current learning rate at each of lr_step_milestones
-    lr_scheduler_patience: int = 10  # patience for some schedulers (i.e. ReduceLROnPlateau)
+    lr_scheduler_patience: int = 10  # patience for some schedulers (i.e. ReduceLROnPlateau); also usable as cooldown
     lr_scheduler_threshold: float = 0.0001  # loss threshold for some schedulers (i.e. ReduceLROnPlateau)
 
 

@@ -53,7 +53,7 @@ def patch_configs(epoch_num_to_set=TrainerConfig.epoch_num, batch_size_to_set=Da
         device = "cpu"
         batch_size_to_set = 16
         num_workers_to_set = 1
-        epoch_num_to_set = epoch_num_to_set // 10
+        epoch_num_to_set = max(epoch_num_to_set // 10, 3)
 
     dataloader_config = DataloaderConfig(batch_size=batch_size_to_set, num_workers=num_workers_to_set)
     trainer_config = TrainerConfig(device=device, epoch_num=epoch_num_to_set)
